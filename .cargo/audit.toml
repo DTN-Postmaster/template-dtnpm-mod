@@ -1,0 +1,7 @@
+[advisories]
+ignore = [
+    # VEX / Not Affected: RUSTSEC-2026-0459 (libsqlite3-sys CVE-2026-119375)
+    # affects SQLite's optional `session` extension only.
+    # template-dtnpm-mod does not enable or invoke SQLite's session extension.
+    "RUSTSEC-2026-0459",
+]

@@ -1,0 +1,45 @@
+[package]
+name = "template-dtnpm-mod"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.95"
+license = "MIT OR Apache-2.0"
+description = "Template GitHub pour créer un module d'extension WebUI fullstack pour DTN Postmaster (dtnpm)"
+repository = "https://github.com/dtn-postmaster/template-dtnpm-mod"
+keywords = ["dtn", "bpv7", "webmodule", "dtnpm", "axum", "preact"]
+
+[features]
+default = ["cli"]
+cli = ["dep:clap", "dep:tracing-subscriber"]
+
+[[bin]]
+name = "template-dtnpm-mod"
+path = "src/main.rs"
+required-features = ["cli"]
+
+[dependencies]
+dtnpm-core = { path = "../dtnpm-core" }
+dtnpm-web-core = { path = "../dtnpm-web-core" }
+hardy-async = { path = "../../hardy/async" }
+hardy-bpa = { path = "../../hardy/bpa" }
+hardy-bpv7 = { path = "../../hardy/bpv7" }
+
+anyhow = "1.0"
+async-trait = "0.1"
+axum = "0.8"
+bytes = "1.10"
+rusqlite = { version = "0.40", features = ["bundled"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+thiserror = "2.0"
+time = { version = "0.3", features = ["formatting", "macros"] }
+tokio = { version = "1.43", features = ["full"] }
+tracing = "0.1"
+
+clap = { version = "4.5", features = ["derive", "env"], optional = true }
+tracing-subscriber = { version = "0.3", features = ["env-filter"], optional = true }
+
+[dev-dependencies]
+tempfile = "3"
+tokio = { version = "1.43", features = ["full"] }
+tower = { version = "0.5", features = ["util"] }

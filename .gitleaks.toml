@@ -1,0 +1,10 @@
+[extend]
+useDefault = true
+
+[whitelist]
+description = "Ignore test fixtures and documentation false positives"
+paths = [
+    '''tests/.*''',
+    '''examples/.*''',
+    '''\.cargo/.*''',
+]
