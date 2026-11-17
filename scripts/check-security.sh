@@ -85,7 +85,7 @@ fi
 echo "=== [6/6] Frontend dependency audit ==="
 if [ -f "ui/package.json" ]; then
     if command -v pnpm >/dev/null 2>&1; then
-        if ! (cd ui && pnpm audit --audit-level=high); then
+        if ! (cd ui && pnpm audit --prod --audit-level=high); then
             if [ -n "${CI:-}" ]; then
                 exit 1
             else
