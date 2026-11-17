@@ -44,9 +44,25 @@ jobs:
         with:
           toolchain: stable
           components: clippy, rustfmt
+      - name: Cache protoc
+        id: protoc-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.local/protoc
+          key: protoc-29.3-linux-x86_64
+      - name: Install protoc (cache miss)
+        if: steps.protoc-cache.outputs.cache-hit != 'true'
+        run: |
+          curl -fsSL -o /tmp/protoc.zip "https://github.com/protocolbuffers/protobuf/releases/download/v29.3/protoc-29.3-linux-x86_64.zip"
+          mkdir -p "$HOME/.local/protoc"
+          unzip -q /tmp/protoc.zip -d "$HOME/.local/protoc"
+      - name: Add protoc to PATH
+        run: echo "$HOME/.local/protoc/bin" >> "$GITHUB_PATH"
 
       - name: Install security analysis tools
         uses: taiki-e/install-action@ab49d3c64680143e184118bed66a46419fc15519 # v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tool: cargo-audit, cargo-deny, gitleaks
 
