@@ -1,22 +1,25 @@
-# Directives pour Agents Autonomes & Assistants IA - template-dtnpm-mod
+# Guidelines for Autonomous Agents & AI Assistants — `template-dtnpm-mod`
 
-Ce référentiel s'applique impérativement à toute intervention d'un agent IA sur le dépôt `template-dtnpm-mod`.
+This reference applies strictly to any AI agent intervention on the `template-dtnpm-mod` repository.
 
-## 1. Règles d'Architecture
-- Tout module d'extension doit implémenter le trait `dtnpm_web_core::WebModule`.
-- L'isolation des routes HTTP doit respecter le préfixe `/api/<module_id>/v1`.
-- Les migrations SQLite s'effectuent par lots via des scripts `.sql` situés dans `migrations/`.
+## Documentation Language
+English must be used as the language for all documentation, unless the file is suffixed with `.fr.md` or another language is explicitly requested in the prompt.
 
-## 2. Standards de Sécurité Obligatoires
-- **Zéro `unwrap()` et zéro `panic!`** dans le code de bibliothèque (`src/lib.rs`, `src/routes.rs`, `src/service.rs`) et le point d'entrée exécutable (`src/main.rs`). Les lints `-D clippy::unwrap_used` et `-D clippy::panic` sont activés.
-- **Protection contre les fuites de secrets** : Ne jamais accepter uniquement `--token` en ligne de commande ; imposer `--token-file` / `DTN_HDY_TOKEN_FILE`.
-- **Rendu HTML/Markdown sécurisé** : Réutiliser exclusivement `ui/src/utils/markdown.ts` pour le rendu de contenu utilisateur. Ne jamais utiliser `innerHTML` non échappé.
-- **BPSec Strict par défaut** : Ne jamais relâcher la politique `VerifyPolicy::Strict` sauf demande explicite de l'utilisateur avec l'indicateur `--allow-unauthenticated-bps-opt-in`.
+## 1. Architecture Rules
+- Every extension module must implement the `dtnpm_web_core::WebModule` trait.
+- HTTP route isolation must follow the `/api/<module_id>/v1` prefix.
+- SQLite migrations are executed in batches via `.sql` scripts located in `migrations/`.
 
-## 3. Procédure de Validation
-Avant de valider tout commit :
+## 2. Mandatory Security Standards
+- **Zero `unwrap()` and zero `panic!`** in library code (`src/lib.rs`, `src/routes.rs`, `src/service.rs`) and the executable entry point (`src/main.rs`). The `-D clippy::unwrap_used` and `-D clippy::panic` lints are enabled.
+- **Secret leakage protection**: Never accept only `--token` on the command line; enforce `--token-file` / `DTN_HDY_TOKEN_FILE`.
+- **Secure HTML/Markdown rendering**: Exclusively reuse `ui/src/utils/markdown.ts` for rendering user content. Never use unescaped `innerHTML`.
+- **Strict BPSec by default**: Never relax `VerifyPolicy::Strict` unless explicitly requested by the user with the `--allow-unauthenticated-bps-opt-in` flag.
+
+## 3. Validation Procedure
+Before committing any change:
 ```bash
 ./scripts/check-security.sh --strict
 cargo test --workspace --all-targets
 ```
-Tout avertissement du compilateur (`cargo clippy`) ou échec d'audit (`cargo-deny`, `gitleaks`) est bloquant.
+Any compiler warning (`cargo clippy`) or audit failure (`cargo-deny`, `gitleaks`) is blocking.

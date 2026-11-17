@@ -7,6 +7,10 @@ no-default-features = false
 
 [advisories]
 ignore = [
+    # Unmaintained transitive crates with no safe upgrade available yet (via regorus / dtnpm-core):
+    "RUSTSEC-2026-0542", # humantime
+    "RUSTSEC-2026-0543", # chrono
+    "RUSTSEC-2026-0555", # chrono-tz
     # VEX / Not Affected: RUSTSEC-2026-0459 (libsqlite3-sys CVE-2026-119375)
     "RUSTSEC-2026-0459",
 ]

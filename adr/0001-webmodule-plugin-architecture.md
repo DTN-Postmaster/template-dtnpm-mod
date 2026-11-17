@@ -1,19 +1,19 @@
-# ADR 0001: Architecture modulaire fullstack WebModule
+# ADR 0001: Modular Fullstack `WebModule` Architecture
 
-## Statut
-Accepté
+## Status
+Accepted
 
-## Contexte
-DTN Postmaster (`dtnpm`) permet d'intégrer des fonctionnalités applicatives (Chat, Monitoring, Télémétrie, Messagerie) sans modifier le cœur du serveur web ni le BPA Hardy. Le trait `dtnpm_web_core::WebModule` standardise le cycle de vie, les migrations de bases SQLite partagées, l'enregistrement des services DTN et le montage des routes REST sous Axum.
+## Context
+DTN Postmaster (`dtnpm`) allows integrating application features (Chat, Monitoring, Telemetry, Messaging) without modifying the core web server or the Hardy BPA. The `dtnpm_web_core::WebModule` trait standardizes the lifecycle, shared SQLite database migrations, DTN service registration, and REST route mounting under Axum.
 
-## Décision
-1. Chaque extension implémente `dtnpm_web_core::WebModule`.
-2. Les migrations SQL sont isolées dans `migrations/` et appliquées via la méthode `migrate(&self, conn: &Connection)`.
-3. Les routes API sont préfixées dynamiquement par `/api/<module_id>/v1`.
-4. La réception de bundles DTN s'effectue via un service `hardy_bpa::services::Service` enregistré auprès du BPA.
-5. Toute communication BPA suit le profil strict BPSec (RFC 9172) par défaut.
+## Decision
+1. Every extension implements `dtnpm_web_core::WebModule`.
+2. SQL migrations are isolated in `migrations/` and applied via the `migrate(&self, conn: &Connection)` method.
+3. API routes are dynamically prefixed with `/api/<module_id>/v1`.
+4. DTN bundle reception is handled via a `hardy_bpa::services::Service` registered with the BPA.
+5. All BPA communication follows the strict BPSec (RFC 9172) profile by default.
 
-## Conséquences
-- Découplage strict entre le cœur dtnpm et les extensions tierces.
-- Facilité d'instanciation et de tests intégrés grâce à `TestServerBuilder`.
-- Conformité Cyber Resilience Act (CRA) garantie par construction.
+## Consequences
+- Strict decoupling between the `dtnpm` core and third-party extensions.
+- Easy instantiation and integrated testing via `TestServerBuilder`.
+- Cyber Resilience Act (CRA) compliance guaranteed by design.

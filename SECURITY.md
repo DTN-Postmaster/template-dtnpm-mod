@@ -1,20 +1,20 @@
-# Politique de Sécurité - template-dtnpm-mod
+# Security Policy — `template-dtnpm-mod`
 
-Le projet `template-dtnpm-mod` applique les exigences du **Cyber Resilience Act (CRA)** européen et du référentiel **OWASP Top 10**.
+The `template-dtnpm-mod` project enforces European **Cyber Resilience Act (CRA)** requirements and the **OWASP Top 10** standard.
 
-## Versions supportées
+## Supported Versions
 
-| Version | Supportée |
+| Version | Supported |
 | ------- | --------- |
-| 0.1.x   | ✅ Oui    |
+| 0.1.x   | ✅ Yes    |
 
-## Principes de Sécurité
-- **Authentification & BPSec (RFC 9172)** : Mode strict par défaut. Tout bundle non authentifié ou falsifié est rejeté à la frontière du module.
-- **Gestion des Secrets** : Les jetons Bearer doivent impérativement être passés par fichier via `--token-file` ou `DTN_HDY_TOKEN_FILE` afin d'éviter toute fuite dans `/proc/<pid>/cmdline`.
-- **Mitigation XSS / DOM** : Tout contenu Markdown provenant de pairs distants est rendu via l'utilitaire durci `renderMarkdown` utilisant des nonces cryptographiques éphémères.
-- **Absence de panique** : Code de production garanti sans `unwrap()` ni `panic!`.
+## Security Principles
+- **Authentication & BPSec (RFC 9172)**: Strict mode by default. Any unauthenticated or forged bundle is rejected at the module boundary.
+- **Secret Management**: Bearer tokens must be passed via file using `--token-file` or `DTN_HDY_TOKEN_FILE` to avoid any leakage in `/proc/<pid>/cmdline`.
+- **XSS / DOM Mitigation**: All Markdown content originating from remote peers is rendered via the hardened `renderMarkdown` utility using ephemeral cryptographic nonces.
+- **No Panics**: Production code guaranteed free of `unwrap()` and `panic!`.
 
-## Signalement d'une Vulnérabilité
+## Reporting a Vulnerability
 
-Pour signaler une vulnérabilité de sécurité, merci de contacter l'équipe de sécurité à :
-`security@dtn-postmaster.org` ou d'ouvrir un avis de sécurité privé (GitHub Security Advisory).
+To report a security vulnerability, please contact the security team at:
+`security@dtn-postmaster.org` or open a private Security Advisory (GitHub Security Advisory).

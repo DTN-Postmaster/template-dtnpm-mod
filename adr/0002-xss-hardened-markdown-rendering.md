@@ -1,17 +1,17 @@
-# ADR 0002: Rendu Markdown durci contre le XSS et les injections de nonce
+# ADR 0002: XSS-Hardened and Nonce-Protected Markdown Rendering
 
-## Statut
-Accepté
+## Status
+Accepted
 
-## Contexte
-Les bundles DTN proviennent d'acteurs distants sur le réseau radioamateur maillé. Afficher du contenu non fiable dans l'interface web (Preact/Vite) expose à des attaques Cross-Site Scripting (XSS).
+## Context
+DTN bundles originate from remote actors on the amateur radio mesh network. Displaying untrusted content in the web UI (Preact/Vite) exposes the application to Cross-Site Scripting (XSS) attacks.
 
-## Décision
-1. Assainissement strict HTML (`escapeHtml`, `escapeAttribute`).
-2. Remplacement des blocs de code et des liens par des jetons aléatoires basés sur un nonce cryptographique (`crypto.getRandomValues`) et des délimiteurs de contrôle `\x00` afin d'empêcher toute collision ou falsification.
-3. Blocage par défaut des images distantes et des schémas d'URI dangereux (`javascript:`, `vbscript:`, `data:` non-raster).
-4. Validation regex linéaire sans quantificateurs imbriqués pour prévenir les attaques ReDoS.
+## Decision
+1. Strict HTML sanitization (`escapeHtml`, `escapeAttribute`).
+2. Replacement of code blocks and links with random tokens based on a cryptographic nonce (`crypto.getRandomValues`) and `\x00` control delimiters to prevent any collision or spoofing.
+3. Default blocking of remote images and dangerous URI schemes (`javascript:`, `vbscript:`, non-raster `data:`).
+4. Linear regex validation without nested quantifiers to prevent ReDoS attacks.
 
-## Conséquences
-- Protection OWASP Top 10 A03:2021 (Injection) au plus haut niveau.
-- Immunité contre le vol de cookies de session et d'informations sensibles dans le navigateur.
+## Consequences
+- Highest-level OWASP Top 10 A03:2021 (Injection) protection.
+- Immunity against session cookie theft and sensitive information leakage in the browser.
