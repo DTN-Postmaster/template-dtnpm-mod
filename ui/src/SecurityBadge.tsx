@@ -16,27 +16,27 @@ export function SecurityBadge({
   const norm = (status || 'unsigned').toLowerCase();
 
   let icon = '❓';
-  let label = 'Non signé';
-  let title = 'Bundle standard BPv7 non signé';
+  let label = 'Unsigned';
+  let title = 'Standard unsigned BPv7 bundle';
   let colorClasses =
     'bg-slate-100 text-slate-600 border-slate-200 dark:bg-slate-800 dark:text-slate-400 dark:border-slate-700';
 
   if (norm === 'valid') {
     icon = '🛡️';
-    label = 'Authentifié';
-    title = 'Signature BPSec BIB valide (HMAC-SHA256 - RFC 9103 / RFC 9172)';
+    label = 'Authenticated';
+    title = 'Valid BPSec BIB signature (HMAC-SHA256 - RFC 9103 / RFC 9172)';
     colorClasses =
       'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/60 dark:text-emerald-300 dark:border-emerald-800';
   } else if (norm === 'invalid') {
     icon = '⚠️';
-    label = 'Signature Invalide';
-    title = 'Échec de vérification BPSec : contenu altéré ou clé secrète incorrecte !';
+    label = 'Invalid Signature';
+    title = 'BPSec verification failed: content altered or incorrect secret key!';
     colorClasses =
       'bg-rose-50 text-rose-700 border-rose-200 dark:bg-rose-950/60 dark:text-rose-300 dark:border-rose-800 font-semibold';
   } else if (norm === 'missing_key') {
     icon = '❓';
-    label = 'Clé manquante';
-    title = 'Bundle signé avec BPSec BIB, mais aucune clé correspondante configurée';
+    label = 'Missing Key';
+    title = 'Bundle signed with BPSec BIB, but no matching key is configured';
     colorClasses =
       'bg-slate-100 text-slate-600 border-slate-200 dark:bg-slate-800 dark:text-slate-400 dark:border-slate-700';
   }

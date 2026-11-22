@@ -63,7 +63,7 @@ export function ModuleView() {
       <header class="border-b pb-4 dark:border-slate-700 flex justify-between items-center">
         <div>
           <h1 class="text-2xl font-bold text-slate-900 dark:text-white">Template DTN Extension</h1>
-          <p class="text-sm text-slate-500">Exemple de module fullstack DTN Postmaster</p>
+          <p class="text-sm text-slate-500">Example fullstack DTN Postmaster extension module</p>
         </div>
         <SecurityBadge status="valid" />
       </header>
@@ -75,7 +75,7 @@ export function ModuleView() {
       )}
 
       <form onSubmit={handleCreate} class="space-y-4 bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl border border-slate-200 dark:border-slate-700">
-        <h2 class="text-lg font-semibold text-slate-800 dark:text-slate-100">Créer un nouvel élément</h2>
+        <h2 class="text-lg font-semibold text-slate-800 dark:text-slate-100">Create New Item</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label class="block text-xs font-medium text-slate-600 dark:text-slate-300 mb-1">Destination EID</label>
@@ -89,10 +89,10 @@ export function ModuleView() {
             />
           </div>
           <div>
-            <label class="block text-xs font-medium text-slate-600 dark:text-slate-300 mb-1">Titre</label>
+            <label class="block text-xs font-medium text-slate-600 dark:text-slate-300 mb-1">Title</label>
             <input
               type="text"
-              placeholder="Sujet de l'échange"
+              placeholder="Subject or topic"
               value={title}
               onInput={(e) => setTitle((e.target as HTMLInputElement).value)}
               required
@@ -101,9 +101,9 @@ export function ModuleView() {
           </div>
         </div>
         <div>
-          <label class="block text-xs font-medium text-slate-600 dark:text-slate-300 mb-1">Contenu (Markdown supporté)</label>
+          <label class="block text-xs font-medium text-slate-600 dark:text-slate-300 mb-1">Content (Markdown supported)</label>
           <textarea
-            placeholder="Texte du message ou de la commande..."
+            placeholder="Message or command text..."
             value={content}
             onInput={(e) => setContent((e.target as HTMLTextAreaElement).value)}
             rows={3}
@@ -115,14 +115,14 @@ export function ModuleView() {
           disabled={loading}
           class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-sm font-medium transition disabled:opacity-50"
         >
-          {loading ? 'Envoi...' : 'Envoyer via BPA'}
+          {loading ? 'Sending...' : 'Send via BPA'}
         </button>
       </form>
 
       <div class="space-y-4">
-        <h2 class="text-lg font-semibold text-slate-800 dark:text-slate-100">Éléments enregistrés ({items.length})</h2>
+        <h2 class="text-lg font-semibold text-slate-800 dark:text-slate-100">Saved Items ({items.length})</h2>
         {items.length === 0 ? (
-          <p class="text-sm text-slate-500 italic">Aucun élément enregistré pour le moment.</p>
+          <p class="text-sm text-slate-500 italic">No saved items yet.</p>
         ) : (
           <div class="space-y-3">
             {items.map((item) => (
@@ -132,8 +132,8 @@ export function ModuleView() {
                   <SecurityBadge status={item.is_valid_bpsec ? 'valid' : 'unsigned'} />
                 </div>
                 <div class="text-xs text-slate-500 flex space-x-4">
-                  <span>De: <code>{item.source}</code></span>
-                  <span>Vers: <code>{item.destination}</code></span>
+                  <span>From: <code>{item.source}</code></span>
+                  <span>To: <code>{item.destination}</code></span>
                 </div>
                 <div
                   class="prose prose-sm dark:prose-invert max-w-none text-slate-700 dark:text-slate-300"

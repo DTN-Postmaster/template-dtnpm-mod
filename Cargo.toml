@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2024"
 rust-version = "1.95"
 license = "MIT OR Apache-2.0"
-description = "Template GitHub pour créer un module d'extension WebUI fullstack pour DTN Postmaster (dtnpm)"
+description = "GitHub template for creating a fullstack WebUI extension module for DTN Postmaster (dtnpm)"
 repository = "https://github.com/dtn-postmaster/template-dtnpm-mod"
 keywords = ["dtn", "bpv7", "webmodule", "dtnpm", "axum", "preact"]
 
